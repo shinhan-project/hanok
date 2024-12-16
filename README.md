@@ -10,6 +10,10 @@
    - 각 기능 브랜치(feature branches)는 dev를 기준으로 생성하고, 작업 완료 후 다시 dev로 병합
 3. feature/기능명 branch
    - 각 기능별 작업을 위한 브랜치
+   - dev checkout 후 branch
+4. infra branch
+   - dev checkout 후 branch
+   - DB 코드, pom.xml, MvcConfig, Mapper.xml, Mapper.java, VO 등 기능 구현 이외의 작업
 
 # 주요 기능 브랜치
 1. feature/enroll-hanok : 한옥 등록 기능
@@ -31,119 +35,72 @@
 9. feature/mainpage : 손님, 고객, 사장, 관리자 메인페이지
 
 # 진행하기
-1. 각 팀원은 자신이 맡은 기능에 해당하는 브랜치에서 작업
-2. 병합 전에 Pull Request를 통해 코드 리뷰를 진행
-3. dev 브랜치에서 최신 코드를 가져와 충돌을 확인
-4. 완료된 코드는 dev 브랜치로 병합
+### 레포 클론
+- 원격 저장소를 지역 저장소 외에 다른 지역 저장소에서 사용하려면, 원격 저장소에 담긴 내용 전체를 지역 저장소로 가져와야 함
+- 원격 저장소를 지역 저장소로 똑같이 가져오는 작업을 복제 혹은 클론(clone)한다고 함
+1. 터미널(Git Bash)에서 원하는 디렉토리로 이동
+   ```bash
+   cd /path/to/your/workspace # 원하는 경로로 이동(change directory -> cd)
+   git clone https://github.com/shinhan-project/hanok.git
+   cd hanok
+   git branch # 브랜치 확인
+   ```
+### 각 팀원은 자신이 맡은 기능에 해당하는 브랜치에서 작업
+1. 작업할 브랜치로 이동
+   원격 브랜를 로컬로 가져옴
+   ```bash
+   git checkout dev
+   git pull origin dev
+   git checkout feature/<브랜치명>
+   git pull origin feature/<브랜치명>
+   ```
+### 깃 작업 흐름과 역할
+1. 작업 디렉토리 : 실제 파일이 있는 곳으로 변경 작업이 이루어져있는 공간
+2. 스테이징 영역 : 커밋을 위한 준비 공간
+   ```bash
+   git add <파일 이름>
+   ```
+   ```bash
+   touch example.txt    # example.txt 파일 생성
+   git add example.txt  # example.txt를 스테이징에 추가
+   ```
+   ```bash
+   git add . # 여러 파일을 한꺼번에 스테이징에 추가
+   git status # 스테이징 변경 전후사항 확
+   ```
+3. 저장소 영역(레포 영역) : 최종 커밋된 파일이 저장된 공간
+   ```bash
+   git add file1.txt # 파일 경로가 될 수도 있음
+   git commit -m "file1.txt에 대한 변경 사항 커밋" # git add로 먼저 스테이징된 파일만을 커밋, -m은 커밋 메시지 작성용
 
-```mermaid
----
-title: git
----
-gitGraph
-   commit id: "Start"
-   branch main
-   checkout main
-   commit id: "Stable Release"
-   branch dev
-   checkout dev
-   commit id: "Development Base"
-   
-   branch feature/enroll-hanok
-   checkout feature/enroll-hanok
-   commit id: "Hanok Enroll"
-   checkout dev
-   merge feature/enroll-hanok
+   git commit -am "모든 수정 파일을 커밋" # 수정된 파일 모두 자동 스테이징 후 커밋
+   ```
+4. 커밋을 원격 저장소에 올림
+   ```bash
+   git push
+   ```
+5. 외부 컴퓨터에서 내려받아 작업하기
+   - 집에 있는 컴퓨터에서 커밋을 푸시해서 원격 저장소의 커밋 상황이 달라짐
+   - 그래서 같은 원격 저장소와 연결되어 있는 외부 컴퓨터에서 작업하려면 먼저 원격 저장소에 새로 올라온 커밋을 가져와야함
+   - 하나의 원격 저장소에 지역 저장소가 2개 이상 연결되어 있을 때, 지역 저장소에서 작업하려면 원격 저장소의 변경 사항을 먼저 가져와야 함
+   ```bash
+   git pull # 원격 저장소에 새로 올라온 커밋을 가져옴
+   ```
+   - 수정 후 다시 원격 저장소로 푸시
 
-   branch feature/header
-   checkout feature/header
-   commit id: "Header Component"
-   checkout dev
-   merge feature/header
+### fetch, pull, merge 차이
+1. git fetch
+  - 원격 저장소의 변경 사항을 로컬 저장소로 가져옴
+  - 현재 작업 중인 브랜치는 영향 X
+  - 원격 브랜치의 상태를 확인하고, 로컬 브랜치를 직접 업데이트하기 전에 변경 사항을 점검하고 싶을 때 사용
 
-   branch feature/join
-   checkout feature/join
-   commit id: "Join Functionality"
-   checkout dev
-   merge feature/join
-
-   branch feature/login
-   checkout feature/login
-   commit id: "Login Functionality"
-   checkout dev
-   merge feature/login
-
-   branch feature/reservation-payment
-   checkout feature/reservation-payment
-   commit id: "Reservation & Payment"
-   checkout dev
-   merge feature/reservation-payment
-
-   branch feature/review
-   checkout feature/review
-   commit id: "Review Functionality"
-   checkout dev
-   merge feature/review
-
-   branch feature/qna
-   checkout feature/qna
-   commit id: "QnA Functionality"
-   checkout dev
-   merge feature/qna
-
-   branch feature/reservation-check
-   checkout feature/reservation-check
-   commit id: "Reservation Check"
-   checkout dev
-   merge feature/reservation-check
-
-   branch feature/mypage
-   checkout feature/mypage
-   commit id: "MyPage Implementation"
-   checkout dev
-   merge feature/mypage
-
-   branch feature/reservation-management
-   checkout feature/reservation-management
-   commit id: "Reservation Management"
-   checkout dev
-   merge feature/reservation-management
-
-   branch feature/review-management
-   checkout feature/review-management
-   commit id: "Review Management"
-   checkout dev
-   merge feature/review-management
-
-   branch feature/calculation
-   checkout feature/calculation
-   commit id: "Calculation Management"
-   checkout dev
-   merge feature/calculation
-
-   branch feature/customer-check
-   checkout feature/customer-check
-   commit id: "Customer Check"
-   checkout dev
-   merge feature/customer-check
-
-   branch feature/ceo-check
-   checkout feature/ceo-check
-   commit id: "CEO Check"
-   checkout dev
-   merge feature/ceo-check
-
-   branch feature/mainpage
-   checkout feature/mainpage
-   commit id: "Main Page"
-   checkout dev
-   merge feature/mainpage
-
-   checkout main
-   merge dev
-   commit id: "Stable Release Update"
-```
-
-1. 레포지토리 클론
-```bash
-git clone https://github.com/shinhan-project/hanok.git
+2. git pull
+   - 원격 저장소의 변경 사항을 가져오고, 현재 체크아웃된 로컬 브랜치와 merge
+   - git fetch + git merge
+   - 현재 작업 중인 브랜치를 원격 브랜치와 즉시 동기화하고 싶을 때 사용
+     
+3. git merge
+   - 다른 브랜치의 변경 사항을 현재 브랜치에 병합
+   - 병합 대상은 로컬 브랜치일 수도 있고, fetch로 가져온 원격 브랜치일 수도 있음
+   - 로컬 브랜치를 직접 업데이트하거나, 다른 브랜치와 변경 사항을 통합하고 싶을 때 사용
+     
