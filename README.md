@@ -36,6 +36,114 @@
 3. dev 브랜치에서 최신 코드를 가져와 충돌을 확인
 4. 완료된 코드는 dev 브랜치로 병합
 
+```mermaid
+---
+title: git
+---
+gitGraph
+   commit id: "Start"
+   branch main
+   checkout main
+   commit id: "Stable Release"
+   branch dev
+   checkout dev
+   commit id: "Development Base"
+   
+   branch feature/enroll-hanok
+   checkout feature/enroll-hanok
+   commit id: "Hanok Enroll"
+   checkout dev
+   merge feature/enroll-hanok
+
+   branch feature/header
+   checkout feature/header
+   commit id: "Header Component"
+   checkout dev
+   merge feature/header
+
+   branch feature/join
+   checkout feature/join
+   commit id: "Join Functionality"
+   checkout dev
+   merge feature/join
+
+   branch feature/login
+   checkout feature/login
+   commit id: "Login Functionality"
+   checkout dev
+   merge feature/login
+
+   branch feature/reservation-payment
+   checkout feature/reservation-payment
+   commit id: "Reservation & Payment"
+   checkout dev
+   merge feature/reservation-payment
+
+   branch feature/review
+   checkout feature/review
+   commit id: "Review Functionality"
+   checkout dev
+   merge feature/review
+
+   branch feature/qna
+   checkout feature/qna
+   commit id: "QnA Functionality"
+   checkout dev
+   merge feature/qna
+
+   branch feature/reservation-check
+   checkout feature/reservation-check
+   commit id: "Reservation Check"
+   checkout dev
+   merge feature/reservation-check
+
+   branch feature/mypage
+   checkout feature/mypage
+   commit id: "MyPage Implementation"
+   checkout dev
+   merge feature/mypage
+
+   branch feature/reservation-management
+   checkout feature/reservation-management
+   commit id: "Reservation Management"
+   checkout dev
+   merge feature/reservation-management
+
+   branch feature/review-management
+   checkout feature/review-management
+   commit id: "Review Management"
+   checkout dev
+   merge feature/review-management
+
+   branch feature/calculation
+   checkout feature/calculation
+   commit id: "Calculation Management"
+   checkout dev
+   merge feature/calculation
+
+   branch feature/customer-check
+   checkout feature/customer-check
+   commit id: "Customer Check"
+   checkout dev
+   merge feature/customer-check
+
+   branch feature/ceo-check
+   checkout feature/ceo-check
+   commit id: "CEO Check"
+   checkout dev
+   merge feature/ceo-check
+
+   branch feature/mainpage
+   checkout feature/mainpage
+   commit id: "Main Page"
+   checkout dev
+   merge feature/mainpage
+
+   checkout main
+   merge dev
+   commit id: "Stable Release Update"
+```
+
 1. 레포지토리 클론
 ```bash
 git clone https://github.com/shinhan-project/hanok.git
