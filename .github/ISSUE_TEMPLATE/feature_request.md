@@ -1,9 +1,9 @@
 ---
-이름: Feature request
-주제: Suggest an idea for this project
-제목: ''
-분류: ''
-할당자: ''
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
