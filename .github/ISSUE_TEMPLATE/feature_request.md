@@ -7,39 +7,27 @@ assignees: ''
 
 ---
 
-# .github/ISSUE_TEMPLATE/feature_request.md
----
-name: Feature Request
-about: Suggest a new feature or improvement
-title: 'Feat: [enter feature summary]'
-labels: enhancement, minor
-assignees: kimseungbin  # or assign another default user
+# 기능 명세
 
----
+요청한 기능 명세를 명확하고 간결하게 작성하시오.
 
-# Feature Description
+- 해당 기능이 어떤 역할을 수행하는가?
+- 해당 기능이 어떻게 작동하는가?
+- 구현이 어려운 경우 차선택이 있는가?
 
-Please provide a clear and concise description of the feature you'd like to request. Consider including:
+# 해당 기능 필요성
 
-- What problem does this feature solve?
-- How would you like this feature to work?
-- Are there any alternatives you've considered?
+기능 요청의 중요성을 상세하게 작성하시오. 
 
-# Why is this feature needed?
+- 해당 기능은 어떤 문제를 다루는가?
+- 해당 기능은 프로젝트 목표나 사용자의 요구사항과 부합하는가?
+- 해당 기능을 구현하였을 경우 어떤 이점을 가져오는가?
 
-Please explain the importance of this feature request:
+# 추가 내용 (선택 사항)
 
-- What specific problem or pain point does this feature address?
-- How does this feature align with the project's goals or user needs?
-- What are the expected benefits or improvements after implementing this feature?
+기능 요청을 이해하기 위한 추가 정보를 작성하시오.
 
-# Additional Context
-
-Please provide any additional information that could help us understand and evaluate your feature request:
-
-- Are there any specific use cases or scenarios where this feature would be particularly useful?
-- Do you have any mockups, diagrams, or examples from other projects that illustrate your idea?
-- Are there any potential challenges or considerations we should be aware of when implementing this feature?
-- How does this feature request related to or impact existing functionality?
-
-Feel free to attach screenshots, links or any other relevant resources.
+- 해당 기능이 기존에 사용되는 경우가 있는가?
+- 설명을 위한 다른 다이어그램 혹은 모형이 있는가?
+- 해당 기능을 구현할 경우 발생하는 잠재적 문제나 고려 사항이 있는가?
+- 해당 기능이 기존 기능에 어떤 영향을 미치는가?
