@@ -1,9 +1,9 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+이름: Feature request
+주제: Suggest an idea for this project
+제목: ''
+분류: ''
+할당자: ''
 
 ---
 
@@ -15,7 +15,7 @@ assignees: ''
 - 해당 기능이 어떻게 작동하는가?
 - 구현이 어려운 경우 차선택이 있는가?
 
-### 작업 상세 내용
+## 작업 상세 내용
 - [ ] 해야 할 작업 1  
 - [ ] 해야 할 작업 2  
 - [ ] 기타 필요한 작업
