@@ -37,7 +37,7 @@
 # 진행하기
 ### 레포 클론
 - 원격 저장소를 지역 저장소 외에 다른 지역 저장소에서 사용하려면, 원격 저장소에 담긴 내용 전체를 지역 저장소로 가져와야 함
-- 원격 저장소를 지역 저장소로 똑같이 가져오는 작업을 복제 혹은 클론(clone)한다고 함
+- git clone : 원격 저장소를 지역 저장소로 똑같이 가져오는 작업을 하는 명령어
 1. 터미널(Git Bash)에서 원하는 디렉토리로 이동
    ```bash
    cd /path/to/your/workspace # 원하는 경로로 이동(change directory -> cd)
@@ -48,7 +48,7 @@
    
 ### 각 팀원은 자신이 맡은 기능에 해당하는 브랜치에서 작업
 1. 작업할 브랜치로 이동
-   원격 브랜를 로컬로 가져옴
+   원격 브랜치를 로컬로 가져옴
    ```bash
    git checkout dev
    git pull origin dev
@@ -117,9 +117,9 @@
    git commit -m "피드백 반영: 수정 내용 설명"
    git push origin <해당 브랜치>
    ```
-   - PR이 열린 상태에서는 push된 내용이 자동으로 업데이트됨
+   - PR이 열린 상태에서는 push된 내용이 자동으로 업데이트됨 (PR은 커밋 기준이 아니고 브랜치 기준)
    - 팀장이 재리뷰
-   - 
+   - git commit 메시지 명명 팁 : https://blog.ull.im/engineering/2019/03/10/logs-on-git.html
 ### PR Merge
    - 머지는 GitHub에서 진행
    - 코드 리뷰가 끝나고 승인되면, PR 페이지에서 "Merge pull request" 버튼을 클릭하여 작업 브랜치의 코드를 기준 브랜치(main 또는 dev)에 병합
@@ -144,6 +144,15 @@
    ```bash
    git pull # 원격 저장소에 새로 올라온 커밋을 가져옴
    ```
+
+### 이슈
+1. 이슈는 왜 쓰는가
+   - 팀원 간의 작업 공유 및 할당
+   - 작업의 우선순위와 상태 관리
+   - 작업과 코드(PR, 커밋)를 연결하여 작업 추적 가능
+2. 이슈 생성
+   - "New Issue" 버튼 클릭
+  
 
 ### fetch, pull, merge 차이
 1. git fetch
