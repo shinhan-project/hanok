@@ -46,6 +46,7 @@
    git remote -v # 원격 저장소가 제대로 연결되었는지 확인
    git branch # 브랜치 확인
    ```
+
 ## 작업 브랜치 생성 및 이슈 확인 (팀원 역할)
 ### 1. 팀장이 만든 이슈 확인
    - GitHub 레포지토리에서 팀장이 할당한 **Issue**를 확인
@@ -65,22 +66,25 @@
 #### 깃 작업 흐름과 역할
 ##### 1. 작업 디렉토리 : 실제 파일이 있는 곳으로 변경 작업이 이루어져있는 공간
 ##### 2. 스테이징 영역 : 커밋을 위한 준비 공간
+   - 개별 작업 후 스테이징할 때 (예시)
    ```bash
-   # 개별 작업 후 스테이징할 때 (예시)
-   git add C:\java\workspace_sts\project\src\main\java\config\MvcConfig.java # 절대 경로나 깃 저장소 기준으로 상대 경로로 사용 가능
+   # 모든 수정사항을 스테이징
+   git add .
+   # 절대 경로나 깃 저장소 기준으로 상대 경로로 사용 가능
+   git add 파일명
    ```
    ```bash
    touch example.txt    # example.txt 파일 생성 (예시)
    git add example.txt  # example.txt를 스테이징에 추가
    ```
+   - 작업 완료 후 스테이징 변경 전후사항 확인
    ```bash
-   git add . # 여러 파일을 한꺼번에 스테이징에 추가
-   git status # 스테이징 변경 전후사항 확인
+   git status
    ```
 ##### 3. 저장소 영역(레포 영역) : 최종 커밋된 파일이 저장된 공간
+   - git add로 먼저 스테이징된 파일만을 커밋
    ```bash
-   git add .
-   git commit -m "이슈번호: 작업 내용 요약" # git add로 먼저 스테이징된 파일만을 커밋, -m : 커밋 메시지 작성용
+   git commit -m "이슈번호: 작업 내용 요약" # -m : 커밋 메시지 작성용
    git commit -am "모든 수정 파일을 커밋" # -am : 수정된 파일 모두 자동 스테이징 후 커밋 (git add . 과정 생략)
    ```
    
@@ -89,25 +93,22 @@
    - 원격 저장소에 푸시되면 다른 팀원들도 해당 브랜치를 확인할 수 있음
    ```bash
    git push
-   git push origin feature/login-page
+   git push origin feature/#이슈번호-간단설명
    ```
 ### 2. Pull Request(PR) 생성
    - GitHub 레포지토리에서 **New Pull Request**를 클릭
-   - PR을 생성할 때 작업 내용을 상세히 기술하고 코드 리뷰를 요청
-      - 해당 저장소의 Pull Requests 탭으로 이동
-      - New Pull Request 버튼을 클릭
-      - Base: 병합할 기준 브랜치 (예: main, develop)
-      - Compare: 작업 브랜치 (예: feature/login-page)
-      - PR 제목과 설명을 작성 (설명은 작업 내용, 변경 사항, 검토 요청 등등 매우 상세하게 작성 권장)
-      - 리뷰어(Reviewers) 지정
-      - Create Pull Request 버튼을 클릭하여 PR을 생성
-   
-### PR에 대한 코드 리뷰를 진행
+   - base : 병합할 기준 브랜치 -> feature 하위의 경우 develop, inrfa인 경우 main
+   - compare : 작업 브랜치 -> infra 혹은 feature/#이슈번호-간단설명으로 설정
+   - PR 제목과 설명을 작성 (설명은 작업 내용, 변경 사항, 검토 요청 등등 매우 상세하게 작성 권장)
+   - 리뷰어(Reviewers) 지정
+   - Create Pull Request 버튼을 클릭하여 PR을 생성
+### 3. PR에 대한 코드 리뷰를 진행
 1. 팀장 : 코드 리뷰 진행
    - GitHub에서 PR 페이지로 이동
    - "Files changed" 클릭
    - Request changes : 수정이 필요하다는 피드백
    - Approve : 코드가 적합하다고 승인
+   - 리뷰가 승인되면 팀장이 PR을 병합하고 브랜치를 삭제
 2. 팀원
    ```bash
    git checkout feature/작업명 # 로컬에서 PR 브랜치로 이동
@@ -118,27 +119,26 @@
    git commit -m "피드백 반영: 수정 내용 설명"
    git push origin <해당 브랜치>
    ```
-   - PR이 열린 상태에서는 push된 내용이 자동으로 업데이트됨 (PR은 커밋 기준이 아니고 브랜치 기준)
+   - PR이 열린 상태에서는 push된 내용이 자동으로 업데이트됨 **(PR은 커밋 기준이 아니고 브랜치 기준)**
    - 팀장이 재리뷰
    - git commit 메시지 명명 팁 : https://blog.ull.im/engineering/2019/03/10/logs-on-git.html
-### PR Merge
+### 4. PR Merge (팀장)
    - 머지는 GitHub에서 진행
    - 코드 리뷰가 끝나고 승인되면, PR 페이지에서 "Merge pull request" 버튼을 클릭하여 작업 브랜치의 코드를 기준 브랜치(main 또는 dev)에 병합
    - 병합 후 원격 저장소에는 최신 코드가 반영
    - 로컬 환경에 업데이트
    ```bash
-   git checkout dev  # 기준 브랜치로 이동 (or main)
-   git pull origin dev  # 최신 코드 가져오기 (or main)
+   git checkout develop  # 기준 브랜치로 이동 (or main)
+   git pull origin develop  # 최신 코드 가져오기 (or main)
    ```
-
-### 브랜치 삭제
+### 5. 브랜치 삭제 (팀장)
    - 작업이 끝난 브랜치는 정리
    ```bash
    git branch -d feature/브랜치명  # 로컬 브랜치 삭제
    git push origin --delete feature/브랜치명  # 원격 브랜치 삭제
    ```
 
-### 외부 컴퓨터에서 내려받아 작업하기
+## 외부 컴퓨터에서 내려받아 작업하기
    - 집에 있는 컴퓨터에서 커밋을 푸시해서 원격 저장소의 커밋 상황이 달라짐
    - 그래서 같은 원격 저장소와 연결되어 있는 외부 컴퓨터에서 작업하려면 먼저 원격 저장소에 새로 올라온 커밋을 가져와야함
    - 하나의 원격 저장소에 지역 저장소가 2개 이상 연결되어 있을 때, 지역 저장소에서 작업하려면 원격 저장소의 변경 사항을 먼저 가져와야 함
@@ -146,56 +146,47 @@
    git pull # 원격 저장소에 새로 올라온 커밋을 가져옴
    ```
 
-### 이슈
-1. 이슈는 왜 쓰는가
-   - 팀원 간의 작업 공유 및 할당
-   - 작업의 우선순위와 상태 관리
-   - 작업과 코드(PR, 커밋)를 연결하여 작업 추적 가능
-2. 이슈 생성
-   - "New Issue" 버튼 클릭
-  
-
-### fetch, pull, merge 차이
-1. git fetch
+## fetch, pull, merge 차이
+### 1. git fetch
    - 원격 저장소의 변경 사항을 로컬 저장소로 가져옴
    - 현재 작업 중인 브랜치는 영향 X
    - 원격 브랜치의 상태를 확인하고, 로컬 브랜치를 직접 업데이트하기 전에 변경 사항을 점검하고 싶을 때 사용
 
-2. git pull
+### 2. git pull
    - 원격 저장소의 변경 사항을 가져오고, 현재 체크아웃된 로컬 브랜치와 merge
    - git fetch + git merge
    - 현재 작업 중인 브랜치를 원격 브랜치와 즉시 동기화하고 싶을 때 사용
      
-3. git merge
+### 3. git merge
    - 다른 브랜치의 변경 사항을 현재 브랜치에 병합
    - 병합 대상은 로컬 브랜치일 수도 있고, fetch로 가져온 원격 브랜치일 수도 있음
    - 로컬 브랜치를 직접 업데이트하거나, 다른 브랜치와 변경 사항을 통합하고 싶을 때 사용
 
-### 충돌 해결 절차
+## 충돌 해결 절차
    - 브랜치 병합시 충돌이 발생할 수 있음
-1. 충돌 확인
+### 1. 충돌 확인
    ```bash
    git pull origin dev
    ```
    - 충돌이 발생하면 메시지 발생
-2. 충돌 수정
+### 2. 충돌 수정
    - 충돌된 파일 열어서 수정
    - 충돌된 코드: <<<<<<<, =======, >>>>>>> 사이의 내용을 수정
-3. 수정, 스테이징, 커밋, 푸시
+### 3. 수정, 스테이징, 커밋, 푸시
    ```bash
    git add .
    git commit -m "충돌 해결: 수정 내용 설명"
    git push origin feature/<브랜치명>
    ```
 
-### 주의사항
-1. 로컬 변경사항을 항상 최신화 후 작업 시작
+## 주의사항
+### 1. 로컬 변경사항을 항상 최신화 후 작업 시작
    ```bash
    git checkout dev
    git pull origin dev
    git checkout feature/<브랜치명>
    ```
-2. 커밋 메시지 작성
+### 2. 커밋 메시지 작성
    - 한 줄 요약 (작업 내용) → 세부 설명
    ```bash
    git commit -m "로그인 페이지 UI 구현
