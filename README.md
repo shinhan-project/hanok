@@ -2,16 +2,16 @@
 한옥 예약 결제 사이트
 
 # 브랜치 소개
-1. main branch
+## 1. main branch
    - 배포 가능한 상태를 유지하는 브랜치
    - 안정적인 코드만 병합됨
-2. dev branch
+## 2. dev branch
    - 모든 개발 작업이 통합되는 브랜치
    - 각 기능 브랜치(feature branches)는 dev를 기준으로 생성하고, 작업 완료 후 다시 dev로 병합
-3. feature/기능명 branch
+## 3. feature/기능명 branch
    - 각 기능별 작업을 위한 브랜치
    - dev checkout 후 branch
-4. infra branch
+## 4. infra branch
    - dev checkout 후 branch
    - DB 코드, pom.xml, MvcConfig, Mapper.xml, Mapper.java, VO 등 기능 구현 이외의 작업
 
@@ -35,19 +35,25 @@
 9. feature/mainpage : 손님, 고객, 사장, 관리자 메인페이지
 
 # 진행하기
-### 레포 클론
+## 레포지토리 클론
 - 원격 저장소를 지역 저장소 외에 다른 지역 저장소에서 사용하려면, 원격 저장소에 담긴 내용 전체를 지역 저장소로 가져와야 함
-- git clone : 원격 저장소를 지역 저장소로 똑같이 가져오는 작업을 하는 명령어
-1. 터미널(Git Bash)에서 원하는 디렉토리로 이동
+- git clone https://github.com/조직이름/프로젝트이름.git : 원격 저장소를 지역 저장소로 똑같이 가져오는 작업을 하는 명령어
+### 1. 터미널(Git Bash)에서 원하는 디렉토리로 이동
    ```bash
    cd /path/to/your/workspace # 원하는 경로로 이동(change directory -> cd)
    git clone https://github.com/shinhan-project/hanok.git
    cd hanok
+   git remote -v # 원격 저장소가 제대로 연결되었는지 확인
    git branch # 브랜치 확인
    ```
-   
-### 각 팀원은 자신이 맡은 기능에 해당하는 브랜치에서 작업
-1. 작업할 브랜치로 이동
+## 작업 브랜치 생성 및 이슈 확인 (팀원 역할)
+### 1. 팀장이 만든 이슈 확인
+   - GitHub 레포지토리에서 팀장이 할당한 **Issue**를 확인
+   - 각 이슈에는 **작업 내용**, **담당자**, **마감 기한**이 명시됨
+### 2. 팀원들은 각 이슈를 확인하여 브랜치를 생성해야 하지만 팀장이 이미 했음
+
+## 각 팀원은 자신이 맡은 기능에 해당하는 브랜치에서 코드 작성 및 커밋
+### 1. 작업할 브랜치로 이동
    원격 브랜치를 로컬로 가져옴
    ```bash
    git checkout dev
@@ -55,10 +61,10 @@
    git checkout feature/<브랜치명>
    git pull origin feature/<브랜치명>
    ```
-   
-### 깃 작업 흐름과 역할
-1. 작업 디렉토리 : 실제 파일이 있는 곳으로 변경 작업이 이루어져있는 공간
-2. 스테이징 영역 : 커밋을 위한 준비 공간
+### 2. 각자 작업 진행
+#### 깃 작업 흐름과 역할
+##### 1. 작업 디렉토리 : 실제 파일이 있는 곳으로 변경 작업이 이루어져있는 공간
+##### 2. 스테이징 영역 : 커밋을 위한 준비 공간
    ```bash
    # 개별 작업 후 스테이징할 때 (예시)
    git add C:\java\workspace_sts\project\src\main\java\config\MvcConfig.java # 절대 경로나 깃 저장소 기준으로 상대 경로로 사용 가능
@@ -71,27 +77,22 @@
    git add . # 여러 파일을 한꺼번에 스테이징에 추가
    git status # 스테이징 변경 전후사항 확인
    ```
-3. 저장소 영역(레포 영역) : 최종 커밋된 파일이 저장된 공간
+##### 3. 저장소 영역(레포 영역) : 최종 커밋된 파일이 저장된 공간
    ```bash
-   git add file1.txt
-   git commit -m "file1.txt에 대한 변경 사항 커밋" # git add로 먼저 스테이징된 파일만을 커밋, -m : 커밋 메시지 작성용
-   git commit -am "모든 수정 파일을 커밋" # -am : 수정된 파일 모두 자동 스테이징 후 커밋
+   git add .
+   git commit -m "이슈번호: 작업 내용 요약" # git add로 먼저 스테이징된 파일만을 커밋, -m : 커밋 메시지 작성용
+   git commit -am "모든 수정 파일을 커밋" # -am : 수정된 파일 모두 자동 스테이징 후 커밋 (git add . 과정 생략)
    ```
    
-### 맡은 기능 작업이 모두 완료되었을 때
-1. 로컬 브랜치의 변경 사항을 원격 저장소에 올림
+## 맡은 기능 작업이 모두 완료되었을 때
+### 1. 로컬 브랜치의 변경 사항을 원격 저장소에 올림
    - 원격 저장소에 푸시되면 다른 팀원들도 해당 브랜치를 확인할 수 있음
    ```bash
    git push
    git push origin feature/login-page
    ```
-2. Pull Request(PR) 생성
-   - 원격 저장소에 브랜치를 푸시한 후, GitHub에서 PR을 생성
-   ```bash
-   git push origin feature/브랜치명
-   git push origin infra
-   ```
-   - PR은 GitHub에서 주로 처리
+### 2. Pull Request(PR) 생성
+   - GitHub 레포지토리에서 **New Pull Request**를 클릭
    - PR을 생성할 때 작업 내용을 상세히 기술하고 코드 리뷰를 요청
       - 해당 저장소의 Pull Requests 탭으로 이동
       - New Pull Request 버튼을 클릭
